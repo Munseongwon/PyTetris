@@ -36,8 +36,8 @@ LINE_COLOR = (255, 255, 255)
 # Block Shapes
 TETROMINOES = {
     'T':{'shape':[(0,0), (-1,0), (1,0), (0,-1)], 'color':PURPLE},
-    'O':{'shape':[(0,0), (0,-1), (1,0), (1,-1)], 'color':BLUE},
-    'J':{'shape':[(0,0), (0,-1), (0,1), (-1,1)], 'color':YELLOW},
+    'O':{'shape':[(0,0), (0,-1), (1,0), (1,-1)], 'color':YELLOW},
+    'J':{'shape':[(0,0), (0,-1), (0,1), (-1,1)], 'color':BLUE},
     'L':{'shape':[(0,0), (0,-1), (0,1), (1,1)], 'color':ORANGE},
     'I':{'shape':[(0,0), (0,-1), (0,-2), (0,1)], 'color':CYAN},
     'S':{'shape':[(0,0), (-1,0), (0,-1), (1,-1)], 'color':GREEN},

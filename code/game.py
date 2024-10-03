@@ -24,7 +24,8 @@ class Game:
         
         # timer
         self.timers = {
-            'vertical move':Timer(UPDATE_START_SPEED, True, self.move_down)
+            'vertical move':Timer(UPDATE_START_SPEED, True, self.move_down),
+            'horizontal move':Timer(MOVE_WAIT_TIME)
         }
         self.timers['vertical move'].activate()
     
@@ -45,13 +46,25 @@ class Game:
         
         for row in range(1, ROWS):
             y = row * CELL_SIZE
-            pygame.draw.line(self.line_surface, LINE_COLOR, (0, y), (self.surface.get_width(), y), 1)
+            pygame.draw.line(self.line_surface, LINE_COLOR, (0, y), (self.surface.get_width(), y))
     
         self.surface.blit(self.line_surface, (0, 0))
+    
+    # keyboard event(left key, right key)
+    def input(self):
+        keys = pygame.key.get_pressed()
+        if not self.timers['horizontal move'].active:
+            if keys[pygame.K_LEFT]:
+                self.tetromino.move_horizontal(-1)
+                self.timers['horizontal move'].activate()
+            if keys[pygame.K_RIGHT]:
+                self.tetromino.move_horizontal(1)
+                self.timers['horizontal move'].activate()
         
     # draw Game Screen Surface
     def run(self) -> None:
         # update
+        self.input()
         self.timer_update()
         self.sprites.update()
         

@@ -31,10 +31,12 @@ class Main:
         
             # display
             self.display_surface.fill(GRAY)
+            
             # components
             self.game.run()
             self.score.run()
             self.preview.run()
+            
             # updating the game
             pygame.display.update()
             self.clock.tick()

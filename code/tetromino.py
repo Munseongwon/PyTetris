@@ -16,6 +16,7 @@ class Tetromino:
             'Z':'RED'
         }
         '''
+        self.shape = shape
         self.block_positions = TETROMINOES[shape]['shape']
         self.block_color = TETROMINOES[shape]['color']
         self.create_new_tetromino = create_new_tetromino
@@ -47,4 +48,25 @@ class Tetromino:
             for block in self.blocks:
                 self.field_data[int(block.pos.y)][int(block.pos.x)] = block
             self.create_new_tetromino()
-        
+    
+    # rotate
+    def rotate(self) -> None:
+        if self.shape != 'O':
+            # 1. pivot point
+            pivot_pos = self.blocks[0].pos
+            # 2. new block positions
+            new_block_positions = [block.rotate(pivot_pos) for block in self.blocks]
+            # 3. collision check
+            for pos in new_block_positions:
+                # horizontal
+                if pos.x < 0 or pos.x >= COLUMNS:
+                    return
+                # field check
+                if self.field_data[int(pos.y)][int(pos.x)]:
+                    return
+                # vertical / floor check
+                if pos.y > ROWS:
+                    return
+            # 4. implement new positions
+            for i, block in enumerate(self.blocks):
+                block.pos = new_block_positions[i]

@@ -12,6 +12,9 @@ class Block(pygame.sprite.Sprite):
         self.pos = pygame.Vector2(pos) + BLOCK_OFFSET
         self.rect = self.image.get_rect(topleft=self.pos * CELL_SIZE)
 
+    def rotate(self, pivot_pos):
+        return pivot_pos + (self.pos - pivot_pos).rotate(90)
+    
     def horiznotal_collide(self, x, field_data):
         if not 0 <= x < COLUMNS:
             return True

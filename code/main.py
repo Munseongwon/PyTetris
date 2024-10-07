@@ -5,6 +5,7 @@ from sys import exit
 from game import Game
 from score import Score
 from preview import Preview
+from random import choice
 
 # Game Main Class
 class Main:
@@ -16,10 +17,23 @@ class Main:
         self.clock = pygame.time.Clock()
         self.title = pygame.display.set_caption('PyTetris')
         
+        # shapes
+        self.next_shapes = [choice(list(TETROMINOES.keys())) for shape in range(3)]
+        
         # components
-        self.game = Game()
+        self.game = Game(self.get_next_shape, self.update_score)
         self.score = Score()
         self.preview = Preview()
+    
+    def update_score(self, lines, score, level):
+        self.score.lines = lines
+        self.score.score = score
+        self.score.level = level
+    
+    def get_next_shape(self):
+        next_shape = self.next_shapes.pop(0)
+        self.next_shapes.append(choice(list(TETROMINOES.keys())))
+        return next_shape
     
     # Game loop func
     def run(self) -> None:
@@ -35,14 +49,12 @@ class Main:
             # components
             self.game.run()
             self.score.run()
-            self.preview.run()
+            self.preview.run(self.next_shapes)
             
             # updating the game
             pygame.display.update()
             self.clock.tick()
-    
-    
-    
+                
 # Game Main Func
 if __name__ == '__main__':
     main = Main()
